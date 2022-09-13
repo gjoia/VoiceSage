@@ -1,0 +1,41 @@
+﻿@model IEnumerable<VoiceSage.Web.Models.ContactDto>
+
+<br /><br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Contacts List</h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="ContactCreate" class="btn btn-outline-primary"><i class="fas fa-plus"></i> Create New Contact</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Number</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Number</td>
+                <td>
+                    <a asp-action="ContactEdit" class="btn btn-success" asp-route-contactId="@item.ContactId">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a asp-action="ContactDelete" class="btn btn-danger" asp-route-contactId="@item.ContactId">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

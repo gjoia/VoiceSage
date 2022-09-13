@@ -1,0 +1,39 @@
+﻿@model IEnumerable<VoiceSage.Web.Models.GroupDto>
+
+<br /><br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Groups List</h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="GroupCreate" class="btn btn-outline-primary"><i class="fas fa-plus"></i> Create New Group</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Group Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+            <tr>
+                <td>@item.GroupName</td>
+                <td>@item.Description</td>
+                <td>
+                    <a asp-action="GroupEdit" class="btn btn-success" asp-route-groupId="@item.GroupId">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a asp-action="GroupDelete" class="btn btn-danger" asp-route-groupId="@item.GroupId">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

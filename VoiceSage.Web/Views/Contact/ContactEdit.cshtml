@@ -1,0 +1,118 @@
+﻿@model VoiceSage.Web.Models.ViewModelContact
+
+<form asp-action="ContactEdit">
+    <input asp-for="ContactDto.ContactId" hidden />
+    @for (int i = 0; i < Model.Groups.Count; i++)
+    {
+        @Html.HiddenFor(model => Model.Groups[i].GroupId)
+        @Html.HiddenFor(model => Model.Groups[i].GroupName)
+        @Html.HiddenFor(model => Model.Groups[i].Description)
+    }
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Edit Contact</h1>
+
+        <hr />
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="ContactDto.Name" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ContactDto.Name" class="form-control" />
+                <span asp-validation-for="ContactDto.Name" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label asp-for="ContactDto.Email" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ContactDto.Email" class="form-control" />
+                <span asp-validation-for="ContactDto.Email" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label asp-for="ContactDto.Number" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ContactDto.Number" class="form-control" />
+                <span asp-validation-for="ContactDto.Number" class="text-danger"></span>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>
+                            GroupId
+                        </th>
+                        <th>
+                            Group Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+                    @{
+                        //To make unique Id
+                        int j = 0;
+                        foreach (var item in Model.Groups.ToList())
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(o => o.Groups[j].GroupId, new { @id = "GroupId_" + j })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(o => o.Groups[j].GroupName, new { @id = "GroupName_" + j })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(o => o.Groups[j].Description, new { @id = "Description_" + j })
+                                </td>
+                                <td>
+                                    <button id="addGroup" class="btn bg-success"></button>
+                                </td>
+                            </tr>
+                            j++;
+                        }
+                    }
+                </table>
+            </div> 
+            <div class="col-2"></div>
+            <div class="col-5 offset-2">
+                <a asp-action="ContactIndex" class="btn-primary btn form-control" onclick="">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Edit" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@functions{
+    public string handleGroupSelection(GroupDto groupDto)
+    {
+        Console.WriteLine("adasda");
+        var gs = Model.Groups.ToList();
+        var result = gs.Contains(groupDto);
+        if (result)
+            gs.Remove(groupDto);
+        else
+            gs.Add(groupDto);
+        return "";
+    }
+}
+<script>
+    $(document.body).on('change', 'input[type="checkbox"]', function () {
+        var inp = $(this);
+        inp.val(inp.prop('checked'));
+    });
+    function teste() {
+        
+    }
+
+    function getComboA(selectObject) {
+        var value = selectObject.value;
+        console.log(value);
+    }
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
