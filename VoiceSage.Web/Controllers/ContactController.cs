@@ -46,6 +46,33 @@ namespace VoiceSage.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> AddRemoveGroup([FromServices] IGroupService groupService, int contactId, int groupId)
+        {
+            var response = await _contactService.GetContactByIdAsync<ResponseDto>(contactId);
+            if (response != null && response.IsSucess)
+            {
+                ContactDto model = JsonConvert.DeserializeObject<ContactDto>(Convert.ToString(response.Result));
+                ContactGroupDto cgDto = new ContactGroupDto
+                {
+                    ContactId = contactId,
+                    GroupId = groupId
+                };
+                if (model.ContactGroups.Where(x => x.ContactId == contactId)
+                    .Where(x => x.GroupId == groupId).FirstOrDefault() != null) {
+                    var l = model.ContactGroups.ToList();
+                    l.RemoveAll(x => x.GroupId == groupId);
+                    model.ContactGroups = l;
+                }
+                else
+                    model.ContactGroups.Add(cgDto);
+                var updateResponse = await _contactService.UpdateContactAsync<ResponseDto>(model);
+                List<GroupDto> list = new List<GroupDto>();
+                
+                return RedirectToAction(nameof(ContactEdit), new { contactId = model.ContactId});
+            }
+            return NotFound();
+        }
+
         public async Task<IActionResult> ContactEdit([FromServices] IGroupService groupService, int contactId)
         {
             var response = await _contactService.GetContactByIdAsync<ResponseDto>(contactId);
@@ -57,7 +84,7 @@ namespace VoiceSage.Web.Controllers
 
                 if (groupsResponse != null && response.IsSucess)
                     list = JsonConvert.DeserializeObject<List<GroupDto>>(Convert.ToString(groupsResponse.Result));
-                ViewBag.AllGroups = list.ToList();
+                ViewBag.AllGroups = model.ContactGroups.ToList();
                 ViewModelContact viewModel = new ViewModelContact
                 {
                     ContactDto = model,
@@ -73,25 +100,20 @@ namespace VoiceSage.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactEdit(ViewModelContact model)
         {
-            if (ModelState.IsValid)
+            var response = await _contactService.GetContactByIdAsync<ResponseDto>(model.ContactDto.ContactId);
+            if (response != null && response.IsSucess)
             {
-                model.ContactDto.ContactGroups = new List<ContactGroupDto>();
-                if (model.Groups != null)
+                ContactDto modelR = JsonConvert.DeserializeObject<ContactDto>(Convert.ToString(response.Result));
+                if (ModelState.IsValid)
                 {
-                    foreach (var g in model.Groups)
-                    {
-                        model.ContactDto.ContactGroups.Add(new ContactGroupDto
-                        {
-                            ContactId = model.ContactDto.ContactId,
-                            GroupId = g.GroupId
-                        });
-                    }
+                    model.ContactDto.ContactGroups = modelR.ContactGroups;
+                    var responseR = await _contactService.UpdateContactAsync<ResponseDto>(model.ContactDto);
+                    if (responseR != null && responseR.IsSucess)
+                        return RedirectToAction(nameof(ContactIndex));
                 }
-                var response = await _contactService.UpdateContactAsync<ResponseDto>(model.ContactDto);
-                if (response != null && response.IsSucess)
-                    return RedirectToAction(nameof(ContactIndex));
+                return View(model.ContactDto);
             }
-            return View(model.ContactDto);
+            return NotFound();
         }
 
         public async Task<IActionResult> ContactDelete(int contactId)
