@@ -325,7 +325,6 @@ C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\bin\Debug\net5.0\ru\Microsof
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\VoiceSage.Web.csprojAssemblyReference.cache
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\VoiceSage.Web.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\VoiceSage.Web.AssemblyInfoInputs.cache
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\VoiceSage.Web.AssemblyInfo.cs
@@ -365,3 +364,4 @@ C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\Razor\Views
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\Razor\Views\Group\GroupEdit.cshtml.g.cs
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\Razor\Views\Group\GroupIndex.cshtml.g.cs
 C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\Razor\Views\Contact\GroupSelect.cshtml.g.cs
+C:\Users\gjoia\source\repos\VoiceSage\VoiceSage.Web\obj\Debug\net5.0\VoiceSage.Web.csproj.AssemblyReference.cache
