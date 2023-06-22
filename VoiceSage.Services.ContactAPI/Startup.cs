@@ -32,7 +32,12 @@ namespace VoiceSage.Services.ContactAPI
         { 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+<<<<<<< HEAD
                 
+=======
+
+
+>>>>>>> FFFFFFFFFFF
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
